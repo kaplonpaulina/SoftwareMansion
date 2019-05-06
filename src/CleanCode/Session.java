@@ -9,13 +9,27 @@ import java.util.Set;
 
 public class Session {
 
-    static int sessionLiveInMinutes = 30;
-    static int numberOfRequiredSessions = 6;
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    static int numberOfConsideredDays = 3;
+    private int sessionLiveInMinutes;
+    private int numberOfRequiredSessions;
+    private DateTimeFormatter formatter;
+    private int numberOfConsideredDays;
 
 
-    public static List<LocalDateTime> stringLogToLocalDateTime(List<String> logDatesInStringFormat) {
+    Session(){
+        this.sessionLiveInMinutes = 30;
+        this.numberOfRequiredSessions = 6;
+        this.numberOfConsideredDays = 3;
+        this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    }
+
+    Session(int sessionLiveInMinutes, int numberOfRequiredSessions, int numberOfConsideredDays, DateTimeFormatter formatter){
+        this.sessionLiveInMinutes = sessionLiveInMinutes;
+        this.numberOfRequiredSessions = numberOfRequiredSessions;
+        this.numberOfConsideredDays = numberOfConsideredDays;
+        this.formatter = formatter;
+    }
+
+    public List<LocalDateTime> stringLogToLocalDateTime(List<String> logDatesInStringFormat) {
 
         List<LocalDateTime> listOfLogTimes = new ArrayList<>();
 
@@ -28,7 +42,7 @@ public class Session {
         return listOfLogTimes;
     }
 
-    public static LocalDateTime getCurrDayDate(List<LocalDateTime> logDatesList) {
+    public LocalDateTime getCurrDayDate(List<LocalDateTime> logDatesList) {
 
         int size = logDatesList.size();
         return size > 0 ? logDatesList.get(size - 1) : logDatesList.get(0);
@@ -36,7 +50,7 @@ public class Session {
     }
 
 
-    public static boolean loggedInLastNumberOfDays(List<LocalDateTime> logDatesList, LocalDateTime currDay) {
+    public boolean loggedInLastNumberOfDays(List<LocalDateTime> logDatesList, LocalDateTime currDay) {
 
         LocalDateTime timeHolder = currDay;
 
@@ -61,7 +75,7 @@ public class Session {
     }
 
 
-    public static int loggedSesionNum(List<LocalDateTime> logDatesList) {
+    public int loggedSesionNum(List<LocalDateTime> logDatesList) {
 
         LocalDateTime timeHolder = logDatesList.get(0);
 
@@ -96,7 +110,7 @@ public class Session {
     }
 
 
-    public static boolean askOpinion(List<String> loggedDatesInStrinFormat) {
+    public boolean askOpinion(List<String> loggedDatesInStrinFormat) {
 
         List<LocalDateTime> loggedDates = stringLogToLocalDateTime(loggedDatesInStrinFormat);
         boolean loggedInLasDays = loggedInLastNumberOfDays(loggedDates, getCurrDayDate(loggedDates));

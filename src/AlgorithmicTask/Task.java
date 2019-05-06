@@ -6,18 +6,19 @@ import java.util.stream.Collectors;
 public class Task {
 
 
-    public static boolean[] eratostenesSieve(int m){
+    public boolean[] eratostenesSieve(int upperLimit) {
 
-        boolean primeNumbers[] = new boolean[m+1];
+        if (upperLimit < 0)
+            throw new IllegalArgumentException("Negative size");
 
-        for(int i=2;i<m;i++)
+        boolean primeNumbers[] = new boolean[upperLimit + 1];
+
+        for (int i = 2; i <= upperLimit; i++)
             primeNumbers[i] = true;
 
-        for(int p = 2; p*p <=m; p++)
-        {
-            if(primeNumbers[p] == true)
-            {
-                for(int i = p*p; i <= m; i += p)
+        for (int p = 2; p * p <= upperLimit; p++) {
+            if (primeNumbers[p] == true) {
+                for (int i = p * p; i <= upperLimit; i += p)
                     primeNumbers[i] = false;
             }
         }
@@ -26,8 +27,11 @@ public class Task {
     }
 
 
+    public List<Integer> removeValuesWithPrimeNumberOfOccurences(List<Integer> sequenceA, List<Integer> sequenceB) {
 
-    public static List<Integer> removeValuesWithPrimeNumberOfOccurences(List<Integer> sequenceA, List<Integer> sequenceB) {
+        if (sequenceB.isEmpty()) {
+            return sequenceA;
+        }
 
 
         Map<Integer, Integer> mapValueToNumber = new HashMap<>();
@@ -38,25 +42,22 @@ public class Task {
             } else {
                 mapValueToNumber.put(number, mapValueToNumber.get(number) + 1);
             }
-        });//b
+        });
 
 
-        Set<Integer> setNumbersOfOcurrence = new HashSet<>(mapValueToNumber.values());//b
+        Set<Integer> setNumbersOfOcurrence = new HashSet<>(mapValueToNumber.values());
 
-        int maxValue = setNumbersOfOcurrence.stream().max(Integer::compare).get();//b
+        int maxValue = setNumbersOfOcurrence.stream().max(Integer::compare).get();
 
-        boolean[] eratostenesSieve = eratostenesSieve(maxValue);//max(b) log(log(max(b)))
+        boolean[] eratostenesSieve = eratostenesSieve(maxValue);
 
-        setNumbersOfOcurrence = setNumbersOfOcurrence.stream().filter(a -> eratostenesSieve[a]).collect(Collectors.toSet());//a
+        Set<Integer> setPrimaryNumbersOfOcurrence = setNumbersOfOcurrence.stream().filter(a -> eratostenesSieve[a]).collect(Collectors.toSet());
 
-        Set<Integer> finalSetNumbersOfOcurrence = setNumbersOfOcurrence;
+        Set<Integer> setB = new HashSet<>(mapValueToNumber.keySet().stream().filter(a -> setPrimaryNumbersOfOcurrence.contains(mapValueToNumber.get(a))).collect(Collectors.toSet()));
 
-        Set<Integer> setB = new HashSet<>(mapValueToNumber.keySet().stream().filter(a -> finalSetNumbersOfOcurrence.contains(mapValueToNumber.get(a))).collect(Collectors.toSet()));//b
-
-        return sequenceA.stream().filter(a -> !setB.contains(a)).collect(Collectors.toList());//a
+        return sequenceA.stream().filter(a -> !setB.contains(a)).collect(Collectors.toList());
 
     }
-
 
 
 }
