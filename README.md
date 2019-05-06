@@ -1,4 +1,4 @@
 # SoftwareMansion
 
-- ex 1. AlgotithmicTask
-- ex 2. CleanCode
+- ex 1. src/AlgotithmicTask
+- ex 2. src/CleanCode
