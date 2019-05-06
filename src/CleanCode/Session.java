@@ -15,7 +15,7 @@ public class Session {
     private int numberOfConsideredDays;
 
 
-    public Session(){
+    public Session() {
 
         this.sessionLiveInMinutes = 30;
         this.numberOfRequiredSessions = 6;
@@ -23,7 +23,7 @@ public class Session {
         this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
-    public Session(int sessionLiveInMinutes, int numberOfRequiredSessions, int numberOfConsideredDays, DateTimeFormatter formatter){
+    public Session(int sessionLiveInMinutes, int numberOfRequiredSessions, int numberOfConsideredDays, DateTimeFormatter formatter) {
         this.sessionLiveInMinutes = sessionLiveInMinutes;
         this.numberOfRequiredSessions = numberOfRequiredSessions;
         this.numberOfConsideredDays = numberOfConsideredDays;
@@ -120,5 +120,9 @@ public class Session {
 
     }
 
+
+    public DateTimeFormatter getFormatter() {
+        return formatter;
+    }
 
 }
