@@ -15,14 +15,15 @@ public class Session {
     private int numberOfConsideredDays;
 
 
-    Session(){
+    public Session(){
+
         this.sessionLiveInMinutes = 30;
         this.numberOfRequiredSessions = 6;
         this.numberOfConsideredDays = 3;
         this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
-    Session(int sessionLiveInMinutes, int numberOfRequiredSessions, int numberOfConsideredDays, DateTimeFormatter formatter){
+    public Session(int sessionLiveInMinutes, int numberOfRequiredSessions, int numberOfConsideredDays, DateTimeFormatter formatter){
         this.sessionLiveInMinutes = sessionLiveInMinutes;
         this.numberOfRequiredSessions = numberOfRequiredSessions;
         this.numberOfConsideredDays = numberOfConsideredDays;
